@@ -7,8 +7,12 @@ import TextInput from 'components/TextInput';
 import PasswordInput from 'components/PasswordInput';
 import Button from 'components/Button';
 import { useApi, endpoints } from 'api';
+import store from 'store';
+import { useHistory } from 'react-router-dom';
+import paths from 'routes/paths';
 
 function Login(props) {
+    const history = useHistory();
     const [api] = useApi(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -88,6 +92,8 @@ function Login(props) {
         const res = await req.data;
         if (res) {
             console.log(res);
+            store.set('access_token', res);
+            history.push(paths.DEVICES);
         }
         else {
             console.log('Not');

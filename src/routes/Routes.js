@@ -15,10 +15,10 @@ const Routes = () => {
     return (
         <Suspense fallback={<SpinLoader style={{ margin: '35px auto' }} />}>
             <Switch>
-                <PrivateRoute exact path={[path.DEVICES]}>
+                <PrivateRoute exact path={[path.DEVICES, '/']}>
                     <Devices />
                 </PrivateRoute>
-                <PublicRoute exact path={[path.LOGIN, '/']}>
+                <PublicRoute exact path={[path.LOGIN]}>
                     <Login />
                 </PublicRoute>
                 <PublicRoute path="*">
