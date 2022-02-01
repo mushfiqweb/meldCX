@@ -25,6 +25,7 @@ const GlobalStyles = createGlobalStyle`
     strong{
         font-weight: 600;
     }
+    
 `;
 
 export default GlobalStyles;
