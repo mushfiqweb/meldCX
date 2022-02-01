@@ -6,7 +6,7 @@ function Button({ children, ...props }) {
 
 const StyledButton = styled.button`
     position: relative;
-    height: 50px;
+    height: 40px;
     width: 120px;
     background: #2B6397;
     color: #fff;
