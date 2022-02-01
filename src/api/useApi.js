@@ -1,19 +1,15 @@
 import axios from 'axios';
 import store from 'store';
 import { endpoints } from 'api';
-import { useContext, useMemo, useRef } from 'react';
-import { LoaderContext } from 'contexts';
+import { useMemo } from 'react';
 
 // eslint-disable-next-line no-undef
 const baseURL = `${process.env['REACT_APP_API_PROTOCOL']}${process.env['REACT_APP_API_ENDPOINT']}`;
 
-export default function useApi(setAuth = true, setDisabled = false) {
-    // useRef is needed to prevent infinite loop when use in useEffect. Dependency checks by reference!
-    const loader = useRef(useContext(LoaderContext));
+export default function useApi(setAuth = true) {       
 
     // useMemo both works for Performance improvement and prevent infinite loop!
-    const api = useMemo(() => {
-        const [showLoader, hideLoader] = loader.current;
+    const api = useMemo(() => {        
 
         // Axios instance
         const api = axios.create({
@@ -23,9 +19,6 @@ export default function useApi(setAuth = true, setDisabled = false) {
         // Set access token using axios request interceptor
         api.interceptors.request.use(
             (config) => {
-                if (!setDisabled) {
-                    showLoader();
-                }
                 // Token from localStorage
                 const token = store.get('access_token');
                 const token_type = store.get('token_type');
@@ -37,19 +30,16 @@ export default function useApi(setAuth = true, setDisabled = false) {
                 return config;
             },
             (error) => {
-                hideLoader();
                 Promise.reject(error);
             }
         );
 
         // Handle refresh token using axios response interceptor
         api.interceptors.response.use(
-            (response) => {
-                hideLoader();
+            (response) => {                
                 return response;
             },
-            (error) => {
-                hideLoader();
+            (error) => {                
                 const originalRequest = error.config;
 
                 // Prevent infinite loop when refresh token request is 401;
@@ -114,7 +104,7 @@ export default function useApi(setAuth = true, setDisabled = false) {
         );
 
         return api;
-    }, [setAuth, loader, setDisabled]);
+    }, [setAuth]);
 
     return [api];
 }

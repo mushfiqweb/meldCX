@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-function TextInput({ onChange, value, placeholder }) {
+function TextInput({ onChange, value, placeholder, name }) {
     return (
         <Wrapper>
             <svg className='svg' fill='none' stroke='currentColor' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'>
@@ -12,6 +12,7 @@ function TextInput({ onChange, value, placeholder }) {
                 />
             </svg>
             <input
+                name={name}
                 type='text'
                 placeholder={placeholder}
                 value={value}

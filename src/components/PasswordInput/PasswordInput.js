@@ -1,18 +1,19 @@
 import styled from 'styled-components';
 import { secretImage } from 'assets/img';
-function PasswordInput({ onChange, value, placeholder }) {
-    return (
-        <Wrapper>
-            <img className='svg' src={secretImage} alt='password' />
-            <input                
-                type='password'
-                placeholder={placeholder}
-                value={value}
-                onChange={onChange}
-                required
-            />
-        </Wrapper>
-    );
+function PasswordInput({ onChange, value, placeholder, name }) {
+  return (
+    <Wrapper>
+      <img className='svg' src={secretImage} alt='password' />
+      <input
+        name={name}
+        type='password'
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        required
+      />
+    </Wrapper>
+  );
 }
 
 const Wrapper = styled.fieldset`
