@@ -1,8 +1,5 @@
-import { Formik } from 'formik';
 import styled from 'styled-components';
-import { useContext, useState } from 'react';
-import Message from 'components/Message';
-import * as Yup from 'yup';
+import { useState } from 'react';
 import TextInput from 'components/TextInput';
 import PasswordInput from 'components/PasswordInput';
 import Button from 'components/Button';
@@ -27,19 +24,18 @@ function Login(props) {
     }
 
     const login = async () => {
-        console.log('Clicked');
-        const formData = {
-            "email": email, "password": password
-        };
-        const req = await api.post(endpoints.LOGIN,formData);
-        const res = await req.data;
-        if (res) {
-            console.log(res);
-            store.set('access_token', res);
-            history.push(paths.DEVICES);
-        }
-        else {
-            console.log('Not');
+        try {
+            const formData = {
+                "email": email, "password": password
+            };
+            const req = await api.post(endpoints.LOGIN, formData);
+            const res = await req.data;
+            if (res) {
+                store.set('access_token', res);
+                history.push(paths.DEVICES);
+            }
+        } catch (err) {
+            alert('Invalid email and password combination');
         }
     }
 

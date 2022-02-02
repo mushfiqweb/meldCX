@@ -3,7 +3,8 @@ import { createGlobalStyle } from 'styled-components';
 const GlobalStyles = createGlobalStyle`
     body{
         font-family: 'Titillium Web', sans-serif;
-        color: ${(props) => props.textColor}
+        color: ${(props) => props.textColor};
+        margin: 0;
     }
 
     h1{

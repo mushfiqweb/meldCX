@@ -1,27 +1,47 @@
 import styled from 'styled-components';
 import Button from 'components/Button';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { endpoints, useApi } from 'api';
+import store from 'store';
+import { useHistory } from 'react-router-dom';
+import paths from 'routes/paths';
+import { useInterval } from 'hooks';
 
 function Devices() {
+    const history = useHistory();
     const [api] = useApi();
     const [devices, setDevices] = useState([]);
 
-    useEffect(()=>{
-        const fetchDevices = async () => {
-            const req = await api.get(endpoints.DEVICES);
-            const res = await req.data;
-            setDevices(res.devices);
-        };
+    const fetchDevices = async () => {
+        const req = await api.get(endpoints.DEVICES);
+        const res = await req.data;
+        setDevices(res.devices);
+    };
 
-        setInterval(() => {
-            fetchDevices();
-        }, 5000);
-        
-    }, [api]);
+    useInterval(() => {
+        fetchDevices();
+    }, 5000);
+
+    const logout = () => {
+        store.clearAll();
+        history.push(paths.LOGIN);
+    }
+
+    const notify = () => {
+        const formData = {
+            "name": 'Mushfiqur Rahman', 
+            "email": 'hello@mushfiqweb.com', 
+            "message": 'Please check out my assignment', 
+            "repoUrl": 'https://github.com/mushfiqweb/meldCX'
+        };
+        const req = api.post(endpoints.NOTIFY, formData);
+        req.then(res => {
+            console.log(res);
+        });
+    }
+
     return (
         <Wrapper>
-
             <DeviceCounter>
                 <div className='counter'>
                     {devices.length}
@@ -31,17 +51,20 @@ function Devices() {
                 </div>
             </DeviceCounter>
 
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
-            <span className="dot"></span>
+            {
+                devices.map((device, index) => {
+                    return (
+                        <span key={device.id} className="dot"></span>
+                    )
+                })
+            }
 
             <ButtonContainer>
-                <NotifyButton>
+                <NotifyButton onClick={notify}>
                     NOTIFY
                 </NotifyButton>
                 <br />
-                <LogoutButton>
+                <LogoutButton onClick={logout}>
                     LOG OUT
                 </LogoutButton>
             </ButtonContainer>
