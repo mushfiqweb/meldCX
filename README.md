@@ -11,11 +11,6 @@ In the project directory, you can run:
 | **`yarn start`** | Runs the app in the development mode. | `.env.development` | `main` |
 | **`yarn build`** | Builds the app for **Production** to the `build` folder. | `.env.production` | `main` |
 
-
-## Project Summary
-
-**Assignment Link** - <https://github.com/MeldCX/frontend-developer-test>
-
 ## Completed User Flow
 1. User enters any email address, and password 'meld123'
 2. User clicks log in
