@@ -29,9 +29,9 @@ function Devices() {
 
     const notify = () => {
         const formData = {
-            "name": 'Mushfiqur Rahman', 
-            "email": 'hello@mushfiqweb.com', 
-            "message": 'Please check out my assignment', 
+            "name": 'Mushfiqur Rahman',
+            "email": 'hello@mushfiqweb.com',
+            "message": 'Please check out my assignment',
             "repoUrl": 'https://github.com/mushfiqweb/meldCX'
         };
         const req = api.post(endpoints.NOTIFY, formData);
@@ -50,11 +50,11 @@ function Devices() {
                     DEVICES <br /> ONLINE
                 </div>
             </DeviceCounter>
-
+            
             {
                 devices.map((device, index) => {
                     return (
-                        <span key={device.id} className="dot"></span>
+                        <div key={device.id} className="dot"></div>
                     )
                 })
             }
@@ -83,6 +83,7 @@ const LogoutButton = styled(Button)`
     background-color: #4a3a3a;
     border: none;
     color: white;
+    margin-left: 10px;
 `;
 
 const ButtonContainer = styled.div`
@@ -117,13 +118,25 @@ const Wrapper = styled.div`
     height: 100vh;
 
     .dot {
+        position: absolute;            
+        top: 40%;
+        left: 50%;
+        margin-left: -20px;
         height: 50px;
         width: 50px;
         background-color: #fff;
         border-radius: 50%;
         display: inline-block;
         margin: 10px;
+        animation: move 3s infinite linear;
     }
+
+    @keyframes move {
+        0%     { transform: rotate(0deg) translateX(250px) rotate(0deg); }
+        100%   { transform: rotate(360deg) translateX(250px) rotate(-360deg); }
+    }
+
+
 `;
 
 export default Devices;
