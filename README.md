@@ -24,6 +24,6 @@ In the project directory, you can run:
 * On the devices screen, the number of circles shown should equal the number of active devices
 
 ## TODO
-* On the devices screen, the circles orbit around the number
-* UI refinements
+* ~~On the devices screen, the circles orbit around the number~~
+* ~~UI refinements~~
 * Add test cases
